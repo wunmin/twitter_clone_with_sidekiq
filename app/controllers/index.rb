@@ -12,9 +12,7 @@ end
 post '/tweet' do
   @user = TwitterUser.find_by_username(session[:user])
   @client = @user.generate_client
-  # @client.update(params[:tweet_text])
-  @user.tweet(params[:tweet_text])
-  redirect to "/"
+  @job_id = @user.tweet(params[:tweet_text])
 end
 
 get '/auth/twitter/callback' do
@@ -36,4 +34,8 @@ end
 get '/auth/failure' do
   # omniauth redirects to /auth/failure when it encounters a problem
   # so you can implement this as you please
+end
+
+get "/status/:job_id" do
+  TweetWorker.job_is_complete(params[:job_id]).to_s
 end
