@@ -40,8 +40,12 @@ Dir[APP_ROOT.join('app', 'helpers', '*.rb')].each { |file| require file }
 
 require APP_ROOT.join('config', 'database')
 
-API_KEYS = YAML::load(File.open('config/twitterapi.yaml'))
+# API_KEYS = YAML::load(File.open('config/twitterapi.yaml'))
+
+# use OmniAuth::Builder do
+#   provider :twitter, API_KEYS["consumer_key"], API_KEYS["consumer_secret"]
+# end
 
 use OmniAuth::Builder do
-  provider :twitter, API_KEYS["consumer_key"], API_KEYS["consumer_secret"]
+  provider :twitter, env["consumer_key"], env["consumer_secret"]
 end
