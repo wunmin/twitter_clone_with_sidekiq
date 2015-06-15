@@ -28,8 +28,8 @@ class TwitterUser < ActiveRecord::Base
 
   def generate_client
     @client = Twitter::REST::Client.new do |config|
-      config.consumer_key        = API_KEYS["consumer_key"]
-      config.consumer_secret     = API_KEYS["consumer_secret"]
+      config.consumer_key        = ENV["consumer_key"]
+      config.consumer_secret     = ENV["consumer_secret"]
       config.access_token        = access_token
       config.access_token_secret = access_token_secret
     end

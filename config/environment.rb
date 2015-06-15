@@ -42,10 +42,10 @@ Dir[APP_ROOT.join('app', 'helpers', '*.rb')].each { |file| require file }
 require APP_ROOT.join('config', 'database')
 
 if Sinatra::Base.development?
-  API_KEYS = YAML::load(File.open('config/twitterapi.yaml'))
+  ENV = YAML::load(File.open('config/twitterapi.yaml'))
 
   use OmniAuth::Builder do
-    provider :twitter, API_KEYS["consumer_key"], API_KEYS["consumer_secret"]
+    provider :twitter, ENV["consumer_key"], ENV["consumer_secret"]
   end
 elsif Sinatra::Base.production?
   use OmniAuth::Builder do
