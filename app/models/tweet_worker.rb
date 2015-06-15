@@ -5,13 +5,7 @@ class TweetWorker
     tweet = Tweet.find(tweet_id)
     user = tweet.twitter_user
 
-    client = Twitter::REST::Client.new do |config|
-      config.consumer_key        = API_KEYS["consumer_key"]
-      config.consumer_secret     = API_KEYS["consumer_secret"]
-      config.access_token        = user.access_token
-      config.access_token_secret = user.access_token_secret
-    end
-
+    client = user.generate_client
     client.update(tweet.text)
 
     # set up Twitter OAuth client here
